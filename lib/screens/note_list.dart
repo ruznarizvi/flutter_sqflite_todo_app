@@ -172,17 +172,17 @@ class NoteListState extends State<NoteList> {
   Color getPriorityColor(int priority) {
     switch (priority) {
       case 1:
-        return Colors.red;
+        return Colors.redAccent;
         break;
       case 2:
-        return Colors.yellow;
+        return Colors.orangeAccent;
         break;
       case 3:
-        return Colors.green;
+        return Colors.lightGreen;
         break;
 
       default:
-        return Colors.yellow;
+        return Colors.lightGreen;
     }
   }
 

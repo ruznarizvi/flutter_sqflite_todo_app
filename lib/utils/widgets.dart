@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 List<Color> colors = [
   Color(0xFFFFFFFF),
-  Color(0xff78addb),
-  Color(0xFFC6B88E),
-  Color(0xDCD6B0EF),
-  Color(0xFFB7D484),
-  Color(0xFF6F9088),
-  Color(0xFFE6C9A9),
-  Color(0xFFEA2E94),
-  Color(0xFFB7EE20),
-  Color(0xFF1A8597)
+  Color(0xff92bfc4),
+  Color(0xFFFFD7A1),
+  Color(0xDCC0A7C4),
+  Color(0xFFE3DEB1),
+  Color(0xFFC18989),
+  Color(0xFFF1F1F1),
+  Color(0xFFF8B3C0),
+  Color(0xFFC0CDA2),
+  Color(0xFF6AC1C1)
 ];
 
 class PriorityPicker extends StatefulWidget {
@@ -24,7 +24,7 @@ class PriorityPicker extends StatefulWidget {
 class _PriorityPickerState extends State<PriorityPicker> {
   int selectedIndex;
   List<String> priorityText = ['Low', 'Medium', 'High'];
-  List<Color> priorityColor = [Colors.green, Colors.lightGreen, Colors.red];
+  List<Color> priorityColor = [Colors.lightGreen, Colors.orangeAccent, Colors.redAccent];
   @override
   Widget build(BuildContext context) {
     if (selectedIndex == null) {

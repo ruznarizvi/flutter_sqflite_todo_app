@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'My Todo App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.blueGrey,
         textTheme: TextTheme(
           headline5: TextStyle(
               fontFamily: 'Sans',
