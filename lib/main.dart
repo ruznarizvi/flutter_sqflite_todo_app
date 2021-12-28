@@ -9,10 +9,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Todo App',
+      title: 'To-Do List',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.grey,
         textTheme: TextTheme(
           headline5: TextStyle(
               fontFamily: 'Sans',

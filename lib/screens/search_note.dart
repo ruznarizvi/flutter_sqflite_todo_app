@@ -12,10 +12,11 @@ class NotesSearch extends SearchDelegate<Note> {
     final ThemeData theme = Theme.of(context).copyWith(
         hintColor: Colors.black,
         primaryColor: Colors.white,
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
           headline6: TextStyle(
-              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
-        ));
+              color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16,),
+        )
+    );
     assert(theme != null);
     return theme;
   }
@@ -164,7 +165,7 @@ class NotesSearch extends SearchDelegate<Note> {
                   ),
                 ),
                 Text(
-                  'Enter a note to search.',
+                  'Enter a note to search',
                   style: TextStyle(color: Colors.black),
                 )
               ],

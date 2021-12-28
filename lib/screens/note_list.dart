@@ -30,7 +30,7 @@ class NoteListState extends State<NoteList> {
 
     Widget myAppBar() {
       return AppBar(
-        title: Text('My Todo App',
+        title: Text('To-Do List',
             style: Theme.of(context).textTheme.headline5),
         centerTitle: true,
         elevation: 0,
@@ -76,8 +76,9 @@ class NoteListState extends State<NoteList> {
         child: Center(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text('Click on the add button to add a new note!',
-                style: Theme.of(context).textTheme.bodyText2),
+              child: Text('Click on the add button below to add a new note!',
+                  style: Theme.of(context).textTheme.bodyText2, textAlign: TextAlign.center,
+              ),
           ),
         ),
       )

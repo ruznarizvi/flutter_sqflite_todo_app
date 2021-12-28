@@ -186,7 +186,7 @@ class NoteDetailState extends State<NoteDetail> {
               style: Theme.of(context).textTheme.bodyText1),
           actions: <Widget>[
             TextButton(
-              child: Text("Okay",
+              child: Text("Ok",
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
