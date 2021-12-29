@@ -3,6 +3,7 @@ import 'package:flutter_sqflite_todo_app/modal/notes.dart';
 
 class NotesSearch extends SearchDelegate<Note> {
   final List<Note> notes;
+  //array is used to store the filtered notes
   List<Note> filteredNotes = [];
   NotesSearch({this.notes});
 
@@ -25,7 +26,7 @@ class NotesSearch extends SearchDelegate<Note> {
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
-        icon: Icon(
+        icon: const Icon(
           Icons.clear,
           color: Colors.black,
         ),
@@ -39,7 +40,7 @@ class NotesSearch extends SearchDelegate<Note> {
   @override
   Widget buildLeading(BuildContext context) {
     return IconButton(
-      icon: Icon(
+      icon: const Icon(
         Icons.arrow_back,
         color: Colors.black,
       ),
@@ -58,7 +59,7 @@ class NotesSearch extends SearchDelegate<Note> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: const <Widget>[
                 SizedBox(
                   width: 50,
                   height: 50,
@@ -78,14 +79,14 @@ class NotesSearch extends SearchDelegate<Note> {
     } else {
       filteredNotes = [];
       getFilteredList(notes);
-      if (filteredNotes.length == 0) {
+      if (filteredNotes.isEmpty) {
         return Container(
           color: Colors.white,
           child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: const <Widget>[
                   SizedBox(
                     width: 50,
                     height: 50,
@@ -106,23 +107,23 @@ class NotesSearch extends SearchDelegate<Note> {
         return Container(
           color: Colors.white,
           child: ListView.builder(
-            itemCount: filteredNotes.length == null ? 0 : filteredNotes.length,
+            itemCount: filteredNotes.length ?? 0,
             itemBuilder: (context, index) {
               return ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.note,
                   color: Colors.black,
                 ),
                 title: Text(
                   filteredNotes[index].title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                       color: Colors.black),
                 ),
                 subtitle: Text(
                   filteredNotes[index].description,
-                  style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14.0, color: Colors.grey),
                 ),
                 onTap: () {
                   close(context, filteredNotes[index]);
@@ -135,10 +136,13 @@ class NotesSearch extends SearchDelegate<Note> {
     }
   }
 
+  //Search notes
   List<Note> getFilteredList(List<Note> note) {
     for (int i = 0; i < note.length; i++) {
+      //checking if entered note keyword is available in the database
       if (note[i].title.toLowerCase().contains(query) ||
           note[i].description.toLowerCase().contains(query)) {
+        //the filtered note is then added to the filteredNotes array
         filteredNotes.add(note[i]);
       }
     }
@@ -154,7 +158,7 @@ class NotesSearch extends SearchDelegate<Note> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: const <Widget>[
                 SizedBox(
                   width: 50,
                   height: 50,
@@ -174,14 +178,14 @@ class NotesSearch extends SearchDelegate<Note> {
     } else {
       filteredNotes = [];
       getFilteredList(notes);
-      if (filteredNotes.length == 0) {
+      if (filteredNotes.isEmpty) {
         return Container(
           color: Colors.white,
           child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: const <Widget>[
                   SizedBox(
                     width: 50,
                     height: 50,
@@ -202,23 +206,23 @@ class NotesSearch extends SearchDelegate<Note> {
         return Container(
           color: Colors.white,
           child: ListView.builder(
-            itemCount: filteredNotes.length == null ? 0 : filteredNotes.length,
+            itemCount: filteredNotes.length ?? 0,
             itemBuilder: (context, index) {
               return ListTile(
-                leading: Icon(
+                leading: const Icon(
                   Icons.note,
                   color: Colors.black,
                 ),
                 title: Text(
                   filteredNotes[index].title,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                       color: Colors.black),
                 ),
                 subtitle: Text(
                   filteredNotes[index].description,
-                  style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                  style: const TextStyle(fontSize: 14.0, color: Colors.grey),
                 ),
                 onTap: () {
                   close(context, filteredNotes[index]);

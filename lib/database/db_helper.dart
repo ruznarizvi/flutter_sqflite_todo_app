@@ -19,23 +19,22 @@ class DatabaseHelper {
   DatabaseHelper._createInstance(); // Named constructor to create instance of DatabaseHelper
 
   factory DatabaseHelper() {
-    if (_databaseHelper == null) {
-      _databaseHelper = DatabaseHelper
-          ._createInstance(); // This is executed only once, singleton object
-    }
+    _databaseHelper ??= DatabaseHelper
+          ._createInstance();
     return _databaseHelper;
   }
 
+  // only have a single app-wide reference to the database
   Future<Database> get database async {
-    if (_database == null) {
-      _database = await initializeDatabase();
-    }
+    _database ??= await initializeDatabase();
     return _database;
   }
 
+  // this opens the database (and creates it if it doesn't exist)
   Future<Database> initializeDatabase() async {
     // Get the directory path for both Android and iOS to store database.
     Directory directory = await getApplicationDocumentsDirectory();
+    //notes.db is the database name
     String path = directory.path + 'notes.db';
 
     // Open/create the database at a given path
@@ -44,47 +43,63 @@ class DatabaseHelper {
     return notesDatabase;
   }
 
+  // SQL code to create the database table
   void _createDb(Database db, int newVersion) async {
     await db.execute(
         'CREATE TABLE $noteTable($colId INTEGER PRIMARY KEY AUTOINCREMENT, $colTitle TEXT, '
             '$colDescription TEXT, $colPriority INTEGER, $colColor INTEGER,$colDate TEXT)');
   }
 
-  // Fetch Operation: Get all note objects from database
+  // READ Operation: Read all note objects from database
   Future<List<Map<String, dynamic>>> getNoteMapList() async {
-    Database db = await this.database;
+    Database db = await database;
 
-//		var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+   //var result = await db.rawQuery('SELECT * FROM $noteTable order by $colPriority ASC');
+
+   // using databaseHelper (alternate solution to using rawQuery)
+    //notes are read using db.query() in ascending order based on the priorities set for each note
     var result = await db.query(noteTable, orderBy: '$colPriority ASC');
     return result;
   }
 
   // Insert Operation: Insert a Note object to database
   Future<int> insertNote(Note note) async {
-    Database db = await this.database;
+    //getting db reference
+    Database db = await database;
+    //running the insert command
+    //our data from note is converted to map object so it can be understood by sqflite
     var result = await db.insert(noteTable, note.toMap());
+
     return result;
   }
 
   // Update Operation: Update a Note object and save it to database
   Future<int> updateNote(Note note) async {
-    var db = await this.database;
+    //getting db reference
+    var db = await database;
+
+    //running the update command to update the data in noteTable via note id
+    //note data is converted to map object
     var result = await db.update(noteTable, note.toMap(),
         where: '$colId = ?', whereArgs: [note.id]);
+
     return result;
   }
 
   // Delete Operation: Delete a Note object from database
   Future<int> deleteNote(int id) async {
-    var db = await this.database;
-    int result =
-    await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
+    //getting db reference
+    var db = await database;
+
+    //deleting note data via sql command
+    int result = await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
+
     return result;
   }
 
   // Get number of Note objects in database
   Future<int> getCount() async {
-    Database db = await this.database;
+    Database db = await database;
     List<Map<String, dynamic>> x =
     await db.rawQuery('SELECT COUNT (*) from $noteTable');
     int result = Sqflite.firstIntValue(x);
@@ -105,4 +120,5 @@ class DatabaseHelper {
 
     return noteList;
   }
+
 }

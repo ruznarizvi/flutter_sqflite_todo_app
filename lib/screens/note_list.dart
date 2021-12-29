@@ -234,9 +234,10 @@ class NoteListState extends State<NoteList> {
       noteListFuture.then((noteList) {
         setState(() {
           this.noteList = noteList;
-          this.count = noteList.length;
+          count = noteList.length;
         });
       });
     });
   }
+
 }
