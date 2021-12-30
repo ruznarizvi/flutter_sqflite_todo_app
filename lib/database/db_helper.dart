@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
 import 'package:path_provider/path_provider.dart';
@@ -59,6 +60,11 @@ class DatabaseHelper {
    // using databaseHelper (alternate solution to using rawQuery)
     //notes are read using db.query() in ascending order based on the priorities set for each note
     var result = await db.query(noteTable, orderBy: '$colPriority ASC');
+
+    //print result in console
+    if (kDebugMode) {
+      print('Notes read successfully: $result');
+    }
     return result;
   }
 
@@ -69,7 +75,14 @@ class DatabaseHelper {
     //running the insert command
     //our data from note is converted to map object so it can be understood by sqflite
     var result = await db.insert(noteTable, note.toMap());
-
+    //var display = await db.query(noteTable, where: '$result = ?', whereArgs: [result]);
+    List<Map> printValues = await db.query(noteTable,
+        columns: [colId, colTitle, colDescription, colPriority, colDate],
+        where: '$result = ?',
+        whereArgs: [result]);
+    if (kDebugMode) {
+      print('Note inserted successfully: Note Id => $result, $printValues');
+    }
     return result;
   }
 
@@ -83,6 +96,14 @@ class DatabaseHelper {
     var result = await db.update(noteTable, note.toMap(),
         where: '$colId = ?', whereArgs: [note.id]);
 
+    List<Map> printValues = await db.query(noteTable,
+        columns: [colId, colTitle, colDescription, colPriority, colColor, colDate],
+        where: '$result = ?',
+        whereArgs: [result]);
+    if (kDebugMode) {
+      print('Note updated successfully: $printValues');
+    }
+
     return result;
   }
 
@@ -93,6 +114,15 @@ class DatabaseHelper {
 
     //deleting note data via sql command
     int result = await db.rawDelete('DELETE FROM $noteTable WHERE $colId = $id');
+
+    List<Map> printValues = await db.query(noteTable,
+        columns: [colId, colTitle, colDescription, colPriority, colDate],
+        where: '$result = ?',
+        whereArgs: [result]);
+
+    if (kDebugMode) {
+      print('Note deleted successfully: $printValues');
+    }
 
     return result;
   }

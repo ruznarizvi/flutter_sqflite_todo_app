@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sqflite_todo_app/modal/notes.dart';
 
@@ -137,7 +138,7 @@ class NotesSearch extends SearchDelegate<Note> {
   }
 
   //Search notes
-  List<Note> getFilteredList(List<Note> note) {
+  Future<List<Note>> getFilteredList(List<Note> note) async {
     for (int i = 0; i < note.length; i++) {
       //checking if entered note keyword is available in the database
       if (note[i].title.toLowerCase().contains(query) ||
@@ -146,6 +147,14 @@ class NotesSearch extends SearchDelegate<Note> {
         filteredNotes.add(note[i]);
       }
     }
+    //checking if notes are being filtered correctly
+    if (filteredNotes.isNotEmpty){
+      debugPrint('Notes filtered successfully.');
+    }else {
+      debugPrint('No results found.');
+    }
+
+
     return filteredNotes;
   }
 

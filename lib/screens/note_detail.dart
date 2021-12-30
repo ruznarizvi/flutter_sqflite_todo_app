@@ -118,7 +118,7 @@ class NoteDetailState extends State<NoteDetail> {
                       onChanged: (value) {
                         updateDescription();
                       },
-                      decoration: InputDecoration.collapsed(
+                      decoration: const InputDecoration.collapsed(
                         hintText: 'Description',
                       ),
                     ),
